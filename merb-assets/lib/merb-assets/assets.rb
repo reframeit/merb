@@ -8,8 +8,11 @@ module Merb
     #   True if the assets should be bundled (e.g., production mode or
     #   :bundle_assets is explicitly enabled).
     def self.bundle?
-      (Merb.environment == 'production') ||
-      (!!Merb::Config[:bundle_assets])
+      if !Merb::Config[:bundle_assets].nil?
+        return Merb::Config[:bundle_assets]
+      else
+        return Merb.environment == 'production'
+      end
     end
     
     # Helpers for handling asset files.
